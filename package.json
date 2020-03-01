@@ -1,0 +1,25 @@
+{
+  "name": "ascii-renderer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simple, performant, crisp ascii rendering via canvas or dom elements",
+  "main": "index.js",
+  "scripts": {
+    "start": "serve .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mreinstein/ascii-renderer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mreinstein/ascii-renderer/issues"
+  },
+  "homepage": "https://github.com/mreinstein/ascii-renderer#readme",
+  "dependencies": {
+    "serve": "^11.3.0"
+  }
+}
