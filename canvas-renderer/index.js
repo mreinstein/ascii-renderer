@@ -1,5 +1,4 @@
-import CharCode   from './char_code.js'
-import unicodeMap from './unicode_map.js'
+import tileMap from './tile-map.js'
 
 
 const _font = {
@@ -34,7 +33,7 @@ export default function Display ({ bg, columns, rows }) {
     for (let row = 0; row < rows; row++) {
         for (let col=0; col < columns; col++) {
             const cell = (row * columns) + col
-            data[cell] = CharCode.period
+            data[cell] = '.'
             flags[cell] = lastRenderIdx
             changed[cell] = false
             fgs[cell] = bg
@@ -132,27 +131,25 @@ export default function Display ({ bg, columns, rows }) {
         // if the font hasn't loaded yet, bail
         if (_font.width === 0)
             return
-       
+
         let drawCount = 0
         let clearCount = 0
 
         for (let idx=0; idx < flags.length; idx++) {
 
-            let char, bgColor, fg
+            let bgColor, fg
 
             if (flags[idx] === renderIdx && changed[idx]) {
                 // draw the cell
-                char = unicodeMap[data[idx]] || data[idx].charCodeAt(0)
                 bgColor = bgs[idx]
                 fg = fgs[idx]
                 drawCount++
 
             } else if (flags[idx] === lastRenderIdx) {
                 // clear the cell
-                char = '.'.charCodeAt(0)
                 bgColor = 'white'
                 fg = '#e0e0e0'
-                data[idx] = CharCode.period
+                data[idx] = '.'
                 clearCount++
             } else {
                 // cell hasn't changed, ignore it
@@ -163,6 +160,8 @@ export default function Display ({ bg, columns, rows }) {
             const row = idx / columns | 0
 
             // the font files always have 32 columns
+            const char = tileMap[data[idx]]
+
             const sx = (char % 32) * _font.charWidth
             const sy = (char / 32 | 0) * _font.charHeight
 
@@ -177,7 +176,7 @@ export default function Display ({ bg, columns, rows }) {
             )
 
             // Don't bother drawing empty characters
-            if (char == 0 || char == CharCode.space)
+            if (char == 0 || char == ' ')
                 continue
 
             const color = _getColorFont(fg)

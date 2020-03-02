@@ -23,13 +23,12 @@
       canvas {
         border: 1px solid #999;
       }
-    
+
   </style>
 </head>
 <body>
   <h1>Render ascii via canvas with a sprite font </h1>
   <script type="module">
-    import CharCode from './canvas-renderer/char_code.js'
     import Display  from './canvas-renderer/index.js'
 
     // defaults to 80x25
@@ -51,40 +50,29 @@
 
     const colors = [ '#000', '#fff', '#f0f', '#0f0', '#f00', '#00f', '#ff0', '#0ff' ]
 
-    //const boxPieces = [ '└', '┘', '┐', '┌', '-', '|' ]
-    const boxPieces = [
-        CharCode.boxDrawingsLightUpAndRight, // '└',
-        CharCode.boxDrawingsLightUpAndLeft, //'┘',
-        CharCode.boxDrawingsLightDownAndLeft, //'┐',
-        CharCode.boxDrawingsLightDownAndRight, //'┌',
-
-        CharCode.boxDrawingsLightHorizontal, //'-'
-        CharCode.boxDrawingsLightVertical // '|'
-    ]
-
     const borderColor = '#333'
 
 
     function drawBox ({ minCol, minRow, maxCol, maxRow, fgColor }) {
-      
-      display.draw(minCol, minRow, boxPieces[3], borderColor)
-      display.draw(maxCol, maxRow, boxPieces[1], borderColor)
-      display.draw(maxCol, minRow, boxPieces[2], borderColor)
-      display.draw(minCol, maxRow, boxPieces[0], borderColor)
+
+      display.draw(minCol, minRow, '┌', borderColor)
+      display.draw(maxCol, maxRow, '┘', borderColor)
+      display.draw(maxCol, minRow, '┐', borderColor)
+      display.draw(minCol, maxRow, '└', borderColor)
 
       for (let c=minCol+1; c < maxCol; c++) {
-        display.draw(c, maxRow, boxPieces[4], borderColor)
-        display.draw(c, minRow, boxPieces[4], borderColor)
+        display.draw(c, maxRow, '─', borderColor)
+        display.draw(c, minRow, '─', borderColor)
       }
 
       for (let r=minRow+1; r < maxRow; r++) {
-        display.draw(minCol, r, boxPieces[5], borderColor)
-        display.draw(maxCol, r, boxPieces[5], borderColor)
+        display.draw(minCol, r, '│', borderColor)
+        display.draw(maxCol, r, '│', borderColor)
       }
 
       for (let r=minRow+1; r < maxRow; r++)
         for (let c=minCol+1; c < maxCol; c++)
-          display.draw(c, r, CharCode.fullBlock, fgColor) // '▉'
+          display.draw(c, r, '█', fgColor)
     }
 
 

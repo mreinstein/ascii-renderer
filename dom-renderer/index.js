@@ -24,7 +24,7 @@ export default function Display ({ bg, columns, rows }) {
 		for (let row = 0; row < grid.rows; row++) {
 			for (let col=0; col < grid.columns; col++) {
 				const cell = (row * grid.columns) + col
-				_grid.data[cell] = '0x002e'
+				_grid.data[cell] = '.'
 				_grid.fg[cell] = fgColor
 				_grid.bg[cell] = bg
 				const nextEl = document.createElement('div')
@@ -88,7 +88,8 @@ export default function Display ({ bg, columns, rows }) {
 			const idx = changed[i]
 			cellEls[idx].style.backgroundColor = _grid.bg[idx]
 			cellEls[idx].style.color = _grid.fg[idx]
-			cellEls[idx].innerText = String.fromCodePoint(_grid.data[idx])
+			//cellEls[idx].innerText = String.fromCodePoint(_grid.data[idx])
+			cellEls[idx].innerText = _grid.data[idx]
 		}
 
 		changed.length = 0
